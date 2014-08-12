@@ -9,15 +9,13 @@ type Object interface {
   ID() int
 }
 
-type Objects []Object;
-
-type Tests interface {
+type Objects interface {
   Len() int
 }
 
-func (objects *Objects) Len() int {
-  return len([]Object(*objects));
-}
+// func (objects *Objects) Len() int {
+//   return len([]Object(*objects));
+// }
 
 
 type UnionFind struct{
@@ -25,7 +23,7 @@ type UnionFind struct{
 }
 
 func (u *UnionFind) Init(objects Objects) {
-  u.objects = make([]Object,len(objects))
+  u.objects = make([]Object,objects.Len())
   // (*u).objects = make([]Object,0)
 }
 
