@@ -5,10 +5,32 @@ type Pair interface {
   Q() Object
 }
 
-type Object interface{}
+type Object interface {
+  ID() int
+}
 
-func find(object Object)  {
-  return ids[p]
+type Objects []Object;
+
+type Tests interface {
+  Len() int
+}
+
+func (objects *Objects) Len() int {
+  return len([]Object(*objects));
+}
+
+
+type UnionFind struct{
+  objects []Object
+}
+
+func (u *UnionFind) Init(objects Objects) {
+  u.objects = make([]Object,len(objects))
+  // (*u).objects = make([]Object,0)
+}
+
+func (u *UnionFind) find(object Object) Object {
+  return u.objects[object.ID()]
 }
 
 // func connected(pair Pair,ids []int) bool {
