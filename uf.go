@@ -20,17 +20,13 @@ type Objects interface {
 
 type ClusterMap map[Object]int
 
-// func (objects *Objects) Len() int {
-//   return len([]Object(*objects));
-// }
-
 type UnionFind struct{
-  Clusters []Object
+  Clusters []int
   ClusterMap ClusterMap
 }
 
 func (u *UnionFind) Init(objects Objects) {
-  u.Clusters = make([]Object,objects.Len())
+  u.Clusters = make([]int,objects.Len())
   u.ClusterMap = make(ClusterMap)
 
   switch reflect.TypeOf(objects).Kind() {
@@ -39,14 +35,18 @@ func (u *UnionFind) Init(objects Objects) {
     for i := 0; i < o.Len(); i++ {
       object := o.Index(i).Interface().(Object)
       u.ClusterMap[object] = i
-      u.Clusters[i] = object
+      u.Clusters[i] = object.ID()
     }
   }
 }
 
-func (u *UnionFind) find(object Object) Object {
+func (u *UnionFind) Find(object Object) int {
   objectPositionInClusters := u.ClusterMap[object]
   return u.Clusters[objectPositionInClusters]
+}
+
+func (u *UnionFind) Union(p Object,q Object) {
+
 }
 
 // func connected(pair Pair,ids []int) bool {
