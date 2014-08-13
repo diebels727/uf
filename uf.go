@@ -2,7 +2,7 @@ package uf
 
 import (
   "reflect"
-  "fmt"
+  // "fmt"
 )
 
 type Pair interface {
@@ -37,9 +37,8 @@ func (u *UnionFind) Init(objects Objects) {
   case reflect.Slice:
     o := reflect.ValueOf(objects)
     for i := 0; i < o.Len(); i++ {
-      object := o.Index(i).Interface()
-      fmt.Println(object)
-      // u.ClusterMap[Object(object)] = object.ID()
+      object := o.Index(i).Interface().(Object)
+      u.ClusterMap[object] = object.ID()
     }
   }
 
