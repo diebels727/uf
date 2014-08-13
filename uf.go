@@ -1,5 +1,10 @@
 package uf
 
+import (
+  "reflect"
+  "fmt"
+)
+
 type Pair interface {
   P() Object
   Q() Object
@@ -13,22 +18,38 @@ type Objects interface {
   Len() int
 }
 
+type ClusterMap map[Object]int
+
 // func (objects *Objects) Len() int {
 //   return len([]Object(*objects));
 // }
 
-
 type UnionFind struct{
-  objects []Object
+  Clusters []Object
+  ClusterMap ClusterMap
 }
 
 func (u *UnionFind) Init(objects Objects) {
-  u.objects = make([]Object,objects.Len())
-  // (*u).objects = make([]Object,0)
+  u.Clusters = make([]Object,objects.Len())
+  u.ClusterMap = make(ClusterMap)
+
+  switch reflect.TypeOf(objects).Kind() {
+  case reflect.Slice:
+    o := reflect.ValueOf(objects)
+    for i := 0; i < o.Len(); i++ {
+      object := o.Index(i).Interface()
+      fmt.Println(object)
+      // u.ClusterMap[Object(object)] = object.ID()
+    }
+  }
+
+  // for id,object := range(objects) {
+  //   u.ClusterMap[&object] = id
+  // }
 }
 
 func (u *UnionFind) find(object Object) Object {
-  return u.objects[object.ID()]
+  return u.Clusters[(object).ID()]
 }
 
 // func connected(pair Pair,ids []int) bool {
