@@ -5,10 +5,8 @@ import (
   "fmt"
 )
 
-type Pair interface {
-  P() Object
-  Q() Object
-}
+//TODOS: switch int to int64
+//TODOS: switch clusterID as int to an interface
 
 type Object interface {
   ID() int
