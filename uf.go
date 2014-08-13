@@ -45,8 +45,24 @@ func (u *UnionFind) Find(object Object) int {
   return u.Clusters[objectPositionInClusters]
 }
 
-func (u *UnionFind) Union(p Object,q Object) {
+func (u *UnionFind) Connected(p Object,q Object) bool {
+  pPositionInClusters := u.ClusterMap[p]
+  qPositionInClusters := u.ClusterMap[q]
+  return u.Clusters[pPositionInClusters] == u.Clusters[qPositionInClusters]
+}
 
+func (u *UnionFind) Union(p Object,q Object) {
+  if u.Connected(p,q) {
+    return
+  }
+  //find all q's and switch all q clusters to p's
+  pClusterID := u.Find(p)
+  qClusterID := u.Find(q)
+  for i,clusterID := range u.Clusters {
+    if clusterID == qClusterID {
+      u.Clusters[i] = pClusterID
+    }
+  }
 }
 
 // func connected(pair Pair,ids []int) bool {

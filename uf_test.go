@@ -67,7 +67,6 @@ func TestTrivialUnionShouldConnectBothObjects(t *testing.T) {
   var testObjects []TestObject
   p := TestObject{10}
   q := TestObject{1}
-
   testObjects = make([]TestObject,0)
   testObjects = append(testObjects,p)
   testObjects = append(testObjects,q)
