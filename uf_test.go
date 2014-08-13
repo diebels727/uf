@@ -2,7 +2,6 @@ package uf
 
 import (
   "testing"
-  // "fmt"
 )
 
 
@@ -107,8 +106,15 @@ func TestComplexUnionShouldConnectObjects(t *testing.T) {
   if u.Find(v) != u.Find(w) {
     t.Error("Expected ",u.Find(v)," to equal ",u.Find(w))
   }
-
-
+  u.Union(p,r)
+  if u.Find(v) != u.Find(w) {
+    t.Error("Expected ",u.Find(p)," to equal ",u.Find(r))
+  }
+  u.Union(w,p)
+  if u.Find(w) != u.Find(p) {
+    t.Error("Expected ",u.Find(w)," to equal ",u.Find(p))
+  }
+  // u.PrettyPrintClusterIDs()
 }
 
 

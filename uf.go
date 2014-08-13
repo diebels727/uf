@@ -2,7 +2,7 @@ package uf
 
 import (
   "reflect"
-  // "fmt"
+  "fmt"
 )
 
 type Pair interface {
@@ -62,6 +62,12 @@ func (u *UnionFind) Union(p Object,q Object) {
     if clusterID == qClusterID {
       u.Clusters[i] = pClusterID
     }
+  }
+}
+
+func (u *UnionFind) PrettyPrintClusterIDs() {
+  for index,id := range u.Clusters {
+    fmt.Println("Index in Clusters: ",index," Cluster ID: ",id)
   }
 }
 
