@@ -38,17 +38,15 @@ func (u *UnionFind) Init(objects Objects) {
     o := reflect.ValueOf(objects)
     for i := 0; i < o.Len(); i++ {
       object := o.Index(i).Interface().(Object)
-      u.ClusterMap[object] = object.ID()
+      u.ClusterMap[object] = i
+      u.Clusters[i] = object
     }
   }
-
-  // for id,object := range(objects) {
-  //   u.ClusterMap[&object] = id
-  // }
 }
 
 func (u *UnionFind) find(object Object) Object {
-  return u.Clusters[(object).ID()]
+  objectPositionInClusters := u.ClusterMap[object]
+  return u.Clusters[objectPositionInClusters]
 }
 
 // func connected(pair Pair,ids []int) bool {

@@ -20,15 +20,15 @@ func (t TestObject) ID() int {
   return t.id
 }
 
-// func TestInit(t *testing.T) {
-//   var testObjects []TestObject
-//   testObjects = make([]TestObject,2)
-//   u := UnionFind{}
-//   u.Init(TestObjects(testObjects))
-//   if len(u.Clusters) != len(testObjects) {
-//     t.Error("Expected ",len(testObjects)," got ",len(u.Clusters))
-//   }
-// }
+func TestInit(t *testing.T) {
+  var testObjects []TestObject
+  testObjects = make([]TestObject,2)
+  u := UnionFind{}
+  u.Init(TestObjects(testObjects))
+  if len(u.Clusters) != len(testObjects) {
+    t.Error("Expected ",len(testObjects)," got ",len(u.Clusters))
+  }
+}
 
 func TestFind(t *testing.T) {
   var testObjects []TestObject
@@ -40,11 +40,8 @@ func TestFind(t *testing.T) {
   testObjects = append(testObjects,TestObject{1})
   u := UnionFind{}
   u.Init(TestObjects(testObjects))
-  fmt.Println("Length of Clusters: ",len(u.Clusters))
   objectUnderTest = TestObject{6}
-  fmt.Println("Pre find")
   object := u.find(objectUnderTest)
-  fmt.Println("Post find")
   if object.ID() != objectUnderTest.ID() {
     t.Error("FAIL")
   }
